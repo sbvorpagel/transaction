@@ -1,0 +1,22 @@
+{
+  "name": "transaction",
+  "version": "1.0.0",
+  "description": "Transaction exemple",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbvorpagel/SWAPP-transaction.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "sbvorpagel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sbvorpagel/SWAPP-transaction/issues"
+  },
+  "homepage": "https://github.com/sbvorpagel/SWAPP-transaction#readme"
+}
