@@ -9,6 +9,17 @@ module.exports = class Transaction {
         this._updateAt = new Date(newDate.getTime());
     }
 
+    toJSON() {
+        return {
+            id: this.id,
+            value: this.value,
+            type: this.type,
+            date: this.date && this.date.getTime(),
+            createAt: this.createAt && this.createAt.getTime(),
+            updateAt: this.updateAt && this.updateAt.getTime(),
+        };
+    }
+
     get id() {
         return this._id;
     }
