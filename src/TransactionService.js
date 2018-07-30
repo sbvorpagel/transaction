@@ -1,7 +1,7 @@
 const TransactionModel = require('./TransactionModel.js');
 const uuid = require('uuid/v4');
 
-const bd = [];
+let bd = [];
 const DAO = {
     insert: (data) => new Promise((resolve) => {
         bd.push(data);
@@ -15,7 +15,13 @@ const DAO = {
             resolve([...bd]);
         }
     }),
-    remove: (id) => new Promise((resolve) => resolve(bd.filter(transaction => transaction.id !== id))),
+    remove: (id) => new Promise((resolve) => {
+        if (!id) {
+            resolve({});
+        }
+        bd = bd.filter(transaction => transaction.id !== id);
+        resolve({id});
+    }),
 }
 
 const create = async (entity) => {
@@ -26,7 +32,21 @@ const create = async (entity) => {
 
 const get = (id) => {
     return DAO.get(id)
-        .then((data) => new TransactionModel(data).toJSON());
+        .then((data) => {
+            if (data && data.id) {
+                return new TransactionModel(data).toJSON();
+            }
+            return null;
+        });
 }
 
-module.exports = {create, get};
+const search = (sort) => {
+    return DAO.list(sort)
+        .then((list) => list.map(item => new TransactionModel(item).toJSON()));
+}
+
+const remove = (id) => {
+    return DAO.remove(id);
+}
+
+module.exports = {create, get, search, remove};
