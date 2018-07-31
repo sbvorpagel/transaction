@@ -1,4 +1,4 @@
-module.exports = class Transaction {
+module.exports = class TransactionModel {
     constructor({id, value, type, date} = {}) {
         const newDate = new Date();
         this._id = id;

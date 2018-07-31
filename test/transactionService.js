@@ -1,6 +1,9 @@
 const chai = require('chai');
-chai.use(require('chai-uuid'));
 const TransactionService = require('../src/TransactionService.js');
+const DAO = require('./MockDAO.js');
+
+chai.use(require('chai-uuid'));
+TransactionService.use({DAO});
 
 const {expect} = chai;
 const {create, get, search, remove} = TransactionService;
