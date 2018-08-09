@@ -6,7 +6,9 @@
   "scripts": {
     "test": "nyc mocha",
     "test:watch": "nodemon --exec nyc --reporter=lcov --reporter=text mocha",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "clean": "rm -rf lib",
+    "build": "npm run clean && babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -15,13 +17,16 @@
   "keywords": [
     "node"
   ],
-  "author": "sbvorpagel",
+  "author": "Samuel Blum Vorpagel <sbvorpagel@gmail.com> (http://sbvorpagel.github.io)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sbvorpagel/SWAPP-transaction/issues"
   },
   "homepage": "https://github.com/sbvorpagel/SWAPP-transaction#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
     "chai-uuid": "^1.0.6",
     "eslint": "^4.19.1",
