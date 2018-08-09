@@ -1,20 +1,27 @@
+/* eslint-disable no-unused-expressions */
 const chai = require('chai');
 const TransactionService = require('../src/TransactionService.js');
 const DAO = require('./MockDAO.js');
 
 chai.use(require('chai-uuid'));
+
 TransactionService.use({ DAO });
 
 const { expect } = chai;
-const { create, get, search, remove } = TransactionService;
+const {
+  create,
+  get,
+  search,
+  remove,
+} = TransactionService;
 
 describe('Transaction service', () => {
   describe('When create a transaction', () => {
     it('Create is a promise', () => expect(create()).to.be.a('promise'));
     it('Create return a full entity', () => {
       const date = new Date();
-      create({ value: 10, type: "Description", date })
-        .then(transaction => {
+      create({ value: 10, type: 'Description', date })
+        .then((transaction) => {
           expect(transaction).to.be.an('object');
           expect(transaction.id).to.be.a.uuid('v4');
           expect(transaction.value).to.equal(10);
@@ -25,8 +32,7 @@ describe('Transaction service', () => {
           expect(transaction.updateAt).to.exist;
         })
         .catch((e) => {
-          console.error(e);
-          throw new Error('was not supposed to fail');
+          throw new Error('was not supposed to fail', e);
         });
     });
   });
@@ -34,9 +40,9 @@ describe('Transaction service', () => {
     it('Get is a promise', () => expect(get()).to.be.a('promise'));
     it('Get return a full entity', () => {
       const date = new Date();
-      create({ value: 10, type: "Description", date })
+      create({ value: 10, type: 'Description', date })
         .then(({ id }) => get(id)
-          .then(transaction => {
+          .then((transaction) => {
             expect(transaction).to.be.an('object');
             expect(transaction.id).to.be.a.uuid('v4');
             expect(transaction.value).to.equal(10);
@@ -47,10 +53,8 @@ describe('Transaction service', () => {
             expect(transaction.updateAt).to.exist;
           })
           .catch((e) => {
-            console.error(e);
-            throw new Error('was not supposed to fail');
-          })
-        )
+            throw new Error('was not supposed to fail', e);
+          }));
     });
   });
   describe('When search a transaction', () => {
@@ -58,36 +62,27 @@ describe('Transaction service', () => {
     it('Search return an Array of transactions', async () => {
       const date1 = new Date();
       const date2 = new Date();
-      let id1;
-      let id2;
-      await create({ value: 10, type: "Description", date1 }).then(({ id }) => id1 = id);
-      await create({ value: 10, type: "Description", date2 }).then(({ id }) => id2 = id);
+      await create({ value: 10, type: 'Description', date1 });
+      await create({ value: 10, type: 'Description', date2 });
       search()
-        .then(transactions => {
-          expect(transactions).to.be.an('Array');
-          //Fazer mais testes
-        })
+        .then(transactions => expect(transactions).to.be.an('Array'))
         .catch((e) => {
-          console.error(e);
-          throw new Error('was not supposed to fail');
+          throw new Error('was not supposed to fail', e);
         });
     });
     it('Search with filter return an Array of transactions', async () => {
       const date1 = new Date();
       const date2 = new Date();
       let id1;
-      let id2;
-      await create({ value: 10, type: "Description", date1 }).then(({ id }) => id1 = id);
-      await create({ value: 10, type: "Description", date2 }).then(({ id }) => id2 = id);
-      search((registry) => registry.id === id1)
-        .then(transactions => {
+      await create({ value: 10, type: 'Description', date1 }).then(({ id }) => { id1 = id; });
+      await create({ value: 10, type: 'Description', date2 });
+      search(registry => registry.id === id1)
+        .then((transactions) => {
           expect(transactions).to.be.an('Array');
           expect(transactions).to.have.a.lengthOf(1);
-          //Fazer mais testes
         })
         .catch((e) => {
-          console.error(e);
-          throw new Error('was not supposed to fail');
+          throw new Error('was not supposed to fail', e);
         });
     });
   });
@@ -96,15 +91,14 @@ describe('Transaction service', () => {
     it('Remove return a removed id', async () => {
       const date1 = new Date();
       let id1;
-      await create({ value: 10, type: "Description", date1 }).then(({ id }) => id1 = id);
+      await create({ value: 10, type: 'Description', date1 }).then(({ id }) => { id1 = id; });
       remove(id1)
-        .then(result => {
+        .then((result) => {
           expect(result).to.be.an('object');
           expect(result.id).to.equal(id1);
         })
         .catch((e) => {
-          console.error(e);
-          throw new Error('was not supposed to fail');
+          throw new Error('was not supposed to fail', e);
         });
       get(id1)
         .then(transaction => expect(transaction).to.be.null);
