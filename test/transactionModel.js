@@ -1,6 +1,7 @@
 const chai = require('chai');
 const TransactionModel = require('../src/TransactionModel.js');
-const expect = chai.expect;
+
+const { expect } = chai;
 
 describe('Transaction model', () => {
   describe('When create a new transaction', () => {
@@ -10,7 +11,7 @@ describe('Transaction model', () => {
 
   describe('When create a new transaction with value and type', () => {
     const date = new Date();
-    const transactionModel = new TransactionModel({ value: 10, type: "Description", date });
+    const transactionModel = new TransactionModel({ value: 10, type: 'Description', date });
     it('Transaction is a object', () => expect(transactionModel).to.be.an('object'));
     it('Transaction has value', () => expect(transactionModel.value).to.equal(10));
     it('Transaction has description', () => expect(transactionModel.type).to.equal('Description'));
@@ -22,7 +23,7 @@ describe('Transaction model', () => {
 
   describe('When create a new transaction with value and type', () => {
     const date = new Date();
-    const transactionModel = new TransactionModel({ value: 10, type: "Description", date });
+    const transactionModel = new TransactionModel({ value: 10, type: 'Description', date });
     const transactionJSON = transactionModel.toJSON();
     it('Transaction is a object', () => expect(transactionJSON).to.be.an('object'));
     it('Transaction has value', () => expect(transactionJSON.value).to.equal(10));

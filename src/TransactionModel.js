@@ -1,11 +1,12 @@
 /* eslint no-underscore-dangle: 0 */
-class TransactionModel {
-  constructor({
-    id,
-    value,
-    type,
-    date,
-  } = {}) {
+module.exports = class TransactionModel {
+  constructor(params = {}) {
+    const {
+      id,
+      value,
+      type,
+      date,
+    } = params;
     const newDate = new Date();
     this._id = id;
     this._value = value;
@@ -49,6 +50,4 @@ class TransactionModel {
   get updateAt() {
     return this._updateAt;
   }
-}
-
-module.exports = { TransactionModel };
+};
