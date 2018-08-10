@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sbvorpagel/module-transaction.git"
+    "url": "git+https://github.com/sbvorpagel/transaction.git"
   },
   "keywords": [
     "node"
@@ -21,9 +21,9 @@
   "author": "Samuel Blum Vorpagel <sbvorpagel@gmail.com> (http://sbvorpagel.github.io)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sbvorpagel/module-transaction/issues"
+    "url": "https://github.com/sbvorpagel/transaction/issues"
   },
-  "homepage": "https://github.com/sbvorpagel/module-transaction#readme",
+  "homepage": "https://github.com/sbvorpagel/transaction#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
