@@ -25,10 +25,13 @@ const search = sort => this.DAO.list(sort)
 
 const remove = id => this.DAO.remove(id);
 
+const update = (id, entity) => this.DAO.update(id, entity);
+
 module.exports = {
   create,
   get,
   search,
   remove,
+  update,
   use,
 };
