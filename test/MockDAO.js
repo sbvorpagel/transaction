@@ -19,4 +19,16 @@ module.exports = {
     bd = bd.filter(transaction => transaction.id !== id);
     resolve({ id });
   }),
+  update: (id, value) => new Promise((resolve) => {
+    if (!id) {
+      resolve({});
+    }
+    bd = bd.map((transaction) => {
+      if (transaction.id === id) {
+        return { ...transaction, ...value };
+      }
+      return transaction;
+    });
+    resolve({ ...bd.find(transaction => transaction.id === id) });
+  }),
 };

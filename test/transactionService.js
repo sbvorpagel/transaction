@@ -13,6 +13,7 @@ const {
   get,
   search,
   remove,
+  update,
 } = TransactionService;
 
 describe('Transaction service', () => {
@@ -102,6 +103,24 @@ describe('Transaction service', () => {
         });
       get(id1)
         .then(transaction => expect(transaction).to.be.null);
+    });
+  });
+  describe('When update a transaction', () => {
+    it('Update is a promise', () => expect(update()).to.be.a('promise'));
+    it('Update return the updated entity', async () => {
+      const date1 = new Date();
+      let id1;
+      await create({ value: 10, type: 'Description', date1 }).then(({ id }) => { id1 = id; });
+      update(id1, { value: 20 })
+        .then((result) => {
+          expect(result).to.be.an('object');
+          expect(result.value).to.equal(20);
+        })
+        .catch((e) => {
+          throw new Error('was not supposed to fail', e);
+        });
+      get(id1)
+        .then(transaction => expect(transaction.value).to.equal(20));
     });
   });
 });
