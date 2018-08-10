@@ -26,18 +26,18 @@ or
 
 `const {create, get, search, remove} = transaction;`
 
-### Create a trasaction
+### Create a transaction
 
 `transaction.create({value: 10, type: "Type of transaction", date: new Date()});`
 
-### Search a trasaction
+### Search a transaction
 
 `transaction.search((transaction => value === 10)); // Search all transactions with value equals to 10`
 
-### Get a trasaction
+### Get a transaction
 
 `transaction.get(id); // Get a transaction by id`
 
-### Remove a trasaction
+### Remove a transaction
 
 `transaction.remove(id); // Remove a transaction by id`
