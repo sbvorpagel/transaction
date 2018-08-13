@@ -77,7 +77,7 @@ describe('Transaction service', () => {
       let id1;
       await create({ value: 10, type: 'Description', date1 }).then(({ id }) => { id1 = id; });
       await create({ value: 10, type: 'Description', date2 });
-      search(registry => registry.id === id1)
+      search({ id: id1 })
         .then((transactions) => {
           expect(transactions).to.be.an('Array');
           expect(transactions).to.have.a.lengthOf(1);

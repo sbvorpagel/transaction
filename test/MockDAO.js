@@ -1,27 +1,26 @@
 let bd = [];
 module.exports = {
-  insert: data => new Promise((resolve) => {
+  insert: (data) => {
     bd.push(data);
-    resolve();
-  }),
-  get: id => new Promise(resolve => resolve(bd.find(transaction => transaction.id === id))),
-  list: sort => new Promise((resolve) => {
-    if (sort) {
-      resolve(bd.filter(sort));
-    } else {
-      resolve([...bd]);
-    }
-  }),
-  remove: id => new Promise((resolve) => {
+    return Promise.resolve();
+  },
+  get: id => Promise.resolve(bd.find(transaction => transaction.id === id)),
+  list: (sort) => {
+    const keys = Object.keys(sort || {});
+    return Promise.resolve(
+      keys.reduce((array, key) => array.filter(element => element[key] === sort[key]), bd),
+    );
+  },
+  remove: (id) => {
     if (!id) {
-      resolve({});
+      return Promise.resolve({});
     }
     bd = bd.filter(transaction => transaction.id !== id);
-    resolve({ id });
-  }),
-  update: (id, value) => new Promise((resolve) => {
+    return Promise.resolve({ id });
+  },
+  update: (id, value) => {
     if (!id) {
-      resolve({});
+      return Promise.resolve({});
     }
     bd = bd.map((transaction) => {
       if (transaction.id === id) {
@@ -29,6 +28,6 @@ module.exports = {
       }
       return transaction;
     });
-    resolve({ ...bd.find(transaction => transaction.id === id) });
-  }),
+    return Promise.resolve({ ...bd.find(transaction => transaction.id === id) });
+  },
 };
